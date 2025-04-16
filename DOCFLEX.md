@@ -19,7 +19,7 @@ définitions (facultatif)
 règles
 %%        (omissible si la section suivante est absente)
 code utilisateur (facultatif)
-
+\n
 ```
 
 > [!CAUTION]
@@ -39,9 +39,10 @@ Les définitions Flex ont la forme :
 nom définition
 ```
 
-Le _nom_ est un mot commençant par une lettre ou underscore suivi de lettres, chiffres, underscores ou tirets.  
+Le _nom_ est un mot commençant par une lettre ou underscore suivi de lettres, chiffres, underscores ou tirets.
+
 La _définition_ est un regex.  
-Les définitions de noms peuvent être référencées plus tard en utilisant : `{nom}`
+Les définitions de noms peuvent être référencées plus tard en utilisant : `{nom}`.
 
 ### **Règles**
 
@@ -61,7 +62,7 @@ Motif spécial:
 `<<EOF>>` un end-of-file (fin de fichier), appel par défaut `yyterminate();` qui termine l'analyseur et retourne 0 indiquant que l'opération est terminée.  
 Si une autre action lui est attribué, il faut indiquer `yyterminate();` à la fin.
 
-Actions spéciales:  
+Action spéciale:  
 `ECHO` comportement identique au cas où aucune correspondance n'est trouvée, le motif reconnu est recopié tel quel sur la sortie standard.
 
 ### **Code utilisateur**
@@ -78,10 +79,13 @@ void main(){
 
 ## ANALYSE DE L'ENTRÉE
 
-Quand l'analyseur généré est lancé, il analyse son entrée en recherchant des chaînes de caractères qui correspondent à l'un de ses motifs.  
-S'il trouve plus d'une correspondance, il utilise celle correspondant au plus de texte.  
-S'il trouve deux correspondances ou plus de la même longueur, la règle listée en premier dans le fichier d'entrée de flex est choisie.  
-Si aucune correspondance n'est trouvée, alors la règle par défaut est exécutée : le caractère est considéré comme reconnu et est copié sur la sortie standard.
+Quand l'analyseur généré est lancé, il analyse son entrée en recherchant des chaînes de caractères qui correspondent à l'un de ses motifs.
+
+- S'il trouve plus d'une correspondance, il utilise celle correspondant au plus de texte.
+
+- S'il trouve deux correspondances ou plus de la même longueur, la règle listée en premier dans le fichier d'entrée de flex est choisie.
+
+- Si aucune correspondance n'est trouvée, alors la règle par défaut est exécutée : le caractère est considéré comme reconnu et est copié sur la sortie standard.
 
 _warning, rule cannot be matched_ indique que la règle donnée n'a pas pu être reconnue car elle suit d'autres règles qui reconnaissent déjà le même texte. Attention à l'ordre des règles.
 
